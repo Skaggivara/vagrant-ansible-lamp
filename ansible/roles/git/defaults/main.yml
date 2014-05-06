@@ -1,0 +1,6 @@
+git_username: git_username
+git_usermail: git_usermail
+
+git_coreeditor: vi
+
+git_pushdefault: current

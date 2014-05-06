@@ -1,0 +1,11 @@
+- name: Update perch config
+  template:
+    src=config.php.j2
+    dest="/vagrant/public/perch/config/config.php"
+
+# - name: Make resources folder writable
+#   file: path={{ site_root }}/public/perch/resources mode=755 recurse=yes state=directory
+
+# - name: Sync resources from staging
+
+# - name: Sync database from staging

@@ -1,0 +1,13 @@
+- name: restart mysql
+  service: name=mysql state=restarted
+
+# - name: import db
+#   mysql_db: name={{ dbname }} state=import target={{ dbname }}.sql
+
+# Copy database dump file to remote host and restore it to database 'my_db'
+- name: copy db
+  copy: src='{{ dbname }}.sql' dest=/tmp
+  notify: import db
+
+- name: import db
+  mysql_db: name='{{ dbname }}' state=import target='/tmp/{{ dbname }}.sql'

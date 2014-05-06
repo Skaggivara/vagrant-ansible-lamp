@@ -1,0 +1,19 @@
+# File: main.yml
+# Part: Apache
+
+# Httpd user and group
+apache_user: "www-data"
+apache_group: "www-data"
+
+# Default apache base directory (without trailing '/')
+site_root: "/vagrant"
+
+apache_port_http: 80
+apache_port_https: 443
+
+apache_modules:
+- rewrite 
+- headers
+- expires
+- filter
+- ssl

@@ -1,0 +1,16 @@
+- name: Install the distribution's PHP base packages
+  apt: pkg={{ item }} state=installed force=yes
+  with_items:
+    - php5
+    - php5-cli
+    - php5-mysql
+    - php5-gd
+    - php5-curl
+    - libapache2-mod-php5
+
+# Install the default templates
+- name: Set php.ini template
+  template:
+    src=php.ini.j2
+    dest=/etc/php5/apache2/php.ini
+    owner=root group=root mode=0644

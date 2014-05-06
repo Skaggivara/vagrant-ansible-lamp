@@ -1,0 +1,24 @@
+<?php
+    define('PERCH_LICENSE_KEY', '{{ perch_license }}');
+
+    define("PERCH_DB_USERNAME", '{{ dbuser }}');
+    define("PERCH_DB_PASSWORD", '{{ upassword }}');
+    define("PERCH_DB_SERVER", "127.0.0.1");
+    define("PERCH_DB_DATABASE", "{{ dbname }}");
+    define("PERCH_DB_PREFIX", "perch2_");
+    
+    define('PERCH_TZ', '{{ timezone }}');
+
+    define('PERCH_EMAIL_FROM', 'lwcooper@gmail.com');
+    define('PERCH_EMAIL_FROM_NAME', 'Lance Cooper');
+
+    define('PERCH_LOGINPATH', '/perch');
+    define('PERCH_PATH', str_replace(DIRECTORY_SEPARATOR.'config', '', dirname(__FILE__)));
+    define('PERCH_CORE', PERCH_PATH.DIRECTORY_SEPARATOR.'core');
+
+    define('PERCH_RESFILEPATH', PERCH_PATH . DIRECTORY_SEPARATOR . 'resources');
+    define('PERCH_RESPATH', PERCH_LOGINPATH . '/resources');
+    
+    define('PERCH_HTML5', {{ perch_html5 }});
+    define('PERCH_RWD', {{ perch_rwd }});
+?>

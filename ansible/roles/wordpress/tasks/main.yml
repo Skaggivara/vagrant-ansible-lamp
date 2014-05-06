@@ -1,0 +1,22 @@
+- name: download WordPress
+  get_url: url=http://wordpress.org/latest.zip dest=/tmp/
+
+- name: unzip WordPress
+  command: unzip /tmp/latest.zip -d /tmp/
+
+- name: set WordPress file permissions correctly
+  file: path=/tmp/wordpress state=directory recurse=yes owner=www-data group=www-data mode=0775
+
+- name: move WordPress files to web root
+  command: mv /tmp/wordpress {{ site_root }}/public/
+
+- name: Update Wordpress config
+  template:
+    src=wp-config-sample.php.j2
+    dest="{{ site_root}}/public/wp-config.php"
+
+- name: set config file permissions correctly
+  file: path={{ site_root}}/public/wp-config.php owner=www-data group=www-data mode=0775
+
+- name: set web root folder permissions
+  file: path={{ site_root }}/public state=directory owner=www-data group=www-data mode=0755

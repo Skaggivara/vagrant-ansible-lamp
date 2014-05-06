@@ -1,0 +1,8 @@
+site_root: /vagrant
+project_name: project_name
+timezone: 'Pacific/Auckland'
+
+#mysql
+dbuser: dbuser
+dbname: dbname
+upassword: dbpassword

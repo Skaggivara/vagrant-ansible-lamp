@@ -1,0 +1,13 @@
+- name: Client
+  action: apt pkg=mysql-client state=installed
+
+- name: Server
+  action: apt pkg=mysql-server state=installed
+  notify: restart mysql
+
+- name: Create Application DB User
+  mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL host='%' state=present
+
+- name: Ensure database exists.
+  mysql_db: name={{ dbname }} state=present
+  #notify: copy db

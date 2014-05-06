@@ -1,0 +1,36 @@
+- name: Install 'python-apt' module (Ubuntu)
+  command: apt-get install python-apt -y
+
+- name: Upgrade Ubuntu
+  apt: upgrade=yes update_cache=yes
+
+- name: Set TZ config file (Ubuntu)
+  template:
+    src=timezone.j2
+    dest=/etc/timezone
+  register: tz_result
+
+# TODO: Broken in Ubuntu 12.04 - use debconf to inject configuration
+#- name: Common | Reconfigure TZ
+#  command: dpkg-reconfigure tzdata
+#  when: tz_result.changed
+
+- name: Install misc utils (Ubuntu)
+  apt: pkg={{ item }} state=present
+  with_items:
+  - curl
+  - dkms
+  - htop
+  - python-mysqldb # Need this to run mysql commands via Ansible
+  - python-pycurl
+  - python-software-properties # Dependencies for the apt module
+  - software-properties-common
+  - tmux
+  - unzip
+  - vim
+
+- name: Set vim as default editor (Ubuntu)
+  command: update-alternatives --set editor /usr/bin/vim.basic
+
+- name: put vagrant user in www-data group
+  user: name=vagrant groups=www-data append=yes

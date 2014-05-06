@@ -1,0 +1,16 @@
+.sass-cache
+.vagrant/*
+
+/node_modules
+/npm-debug.log
+
+.htaccess
+
+.DS_Store
+
+#perch specific
+/public/perch/resources
+config.php
+
+#wordpress specific
+/public/wp-config.php

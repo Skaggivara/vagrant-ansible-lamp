@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+  DocumentRoot {{ site_root }}/public
+    
+  Options -Indexes
+  
+  ServerAlias {{ project_name }}.*.xip.io
+  
+  ErrorLog /var/log/apache2/error.log
+  TransferLog /var/log/apache2/access.log
+</VirtualHost>

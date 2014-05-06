@@ -1,0 +1,4 @@
+ruby_gem_dependencies:
+  - memcached: [libcloog-ppl0]
+  - mysql: [libmysqlclient-dev]
+  - rmagick: [imagemagick,libmagickwand-dev]
