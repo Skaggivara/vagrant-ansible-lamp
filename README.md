@@ -1,4 +1,4 @@
-quick-dev-env
+Ansible Playbooks
 =============
 
 Automatically configures a LAMP stack, and supported CMS's using Vagrant and Ansible
