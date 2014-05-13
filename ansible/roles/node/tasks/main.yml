@@ -1,10 +1,8 @@
-- name: Check for previous installation of Node
-  shell: "[ -f /usr/local/bin/node ]"
-  ignore_errors: True
-  register: node_exists
+- name: Add Chris-Lea nodejs repository
+  apt_repository: repo="ppa:chris-lea/node.js"
 
-- include: main_ubuntu.yml
-  when: ansible_distribution == "Ubuntu" and node_exists|failed
+- name: Install Node + NPM packages
+  apt: pkg=nodejs state=present update_cache=yes
 
 - name: Install npm package {{ item }}
   npm:
@@ -16,11 +14,18 @@
     - bower
 
 #Only run npm install if package.json exists
-- name: Check if package.json exists
-  command: /usr/bin/test -e {{ site_root }}/package.json
-  register: node_package
-  ignore_errors: yes
+# - name: Check if package.json exists in projects
+#   command: /usr/bin/test -e {{ item.site_root }}/package.json
+#   register: node_package
+#   ignore_errors: yes
+#   with_items: projects
 
-- name: Install local npm packages from package.json
-  action: npm path={{ site_root }}
-  when: node_package|success
+#Only run npm install if package.json exists
+# - name: Check if package.json exists
+#   command: /usr/bin/test -e {{ site_root }}/package.json
+  # register: node_package
+  # ignore_errors: yes
+
+# - name: Install local npm packages from package.json
+#   action: npm path={{ site_root }}
+#   when: node_package|success

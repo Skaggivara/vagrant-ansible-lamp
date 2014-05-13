@@ -9,12 +9,3 @@ php_error_reporting: 'E_ALL | E_STRICT'
 php_post_max_size: '64M'
 php_upload_max_filesize: '64M'
 php_main_timezone: '{{ timezone }}'
-
-#APC settings
-php_apc_shm_size: '32M'
-php_apc_shm_segments: 1
-php_apc_stat: 1
-
-# Xdebug settings
-php_xdebug_remote_host: '127.0.0.1'
-php_xdebug_remote_enable: 1

@@ -19,8 +19,11 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :forwarded_port, guest: 80, host: 8080
 
+  config.vm.synced_folder "~/Sites", "/var/www"
+
   config.vm.provision :ansible do |ansible|
     ansible.playbook = "ansible/development.yml"
+    #ansible.ask_vault_pass = true
     ansible.groups = {
       "vagrant" => ["default"]
     }

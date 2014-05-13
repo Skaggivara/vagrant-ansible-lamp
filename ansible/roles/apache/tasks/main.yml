@@ -1,21 +1,13 @@
 - name: Install Apache
   apt: pkg=apache2 state=installed
 
-# Install the default templates
-- name: Apache | Push configuration files
+- name: Push configuration files
   template:
     src={{ item }}.j2
-    dest=/etc/apache2/$item
+    dest=/etc/apache2/{{ item }}
     owner=root group=root mode=0644
   with_items:
   - envvars
-
-- name: Push virtualhost configuration template
-  template:
-    src=default_virtualhost.j2
-    dest="/etc/apache2/sites-available/{{ project_name }}"
-  notify:
-  - apache-restart
 
 - name: Deactivates the default virtualhost
   command: a2dissite default
@@ -23,20 +15,41 @@
 - name: Deactivates the default ssl virtualhost
   command: a2dissite default-ssl
 
-- name: Activates our virtualhost
-  command: a2ensite {{ project_name }}
+- name: Remove default index file from default docroot
+  file: path=/var/www/index.html state=absent
+
+- name: Push project virtualhosts
+  template:
+    src="virtualhost.j2"
+    dest="/etc/apache2/sites-available/{{ item.name }}"
+  with_items: projects
   notify:
     - apache-restart
 
-- name: Remove default index file from default docroot
-  file: path=/var/www/index.html state=absent
+- name: Activates project virtualhosts
+  command: a2ensite {{ item.name }}
+  with_items: projects
+  notify:
+    - apache-restart
+
+# - name: Push virtualhost configuration template
+#   template:
+#     src=default_virtualhost.j2
+#     dest="/etc/apache2/sites-available/{{ project_name }}"
+#   notify:
+#   - apache-restart
+
+# - name: Activates our virtualhost
+#   command: a2ensite {{ project_name }}
+#   notify:
+#     - apache-restart
 
 # Activate modules
 - name: Enable modules
   command: a2enmod {{ item }} creates="/etc/apache2/mods-enabled/{{ item }}.load"
   with_items: apache_modules
   when: apache_modules is defined
-  notify: 
+  notify:
   - apache-restart
 
 # Ensure service is running.

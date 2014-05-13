@@ -1,3 +1,8 @@
+- name: Install misc utils
+  apt: pkg={{ item }} state=present
+  with_items:
+  - python-mysqldb # Need this to run mysql commands via Ansible
+
 - name: Client
   action: apt pkg=mysql-client state=installed
 
@@ -5,9 +10,16 @@
   action: apt pkg=mysql-server state=installed
   notify: restart mysql
 
-- name: Create Application DB User
-  mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL host='%' state=present
+- name: Ensure project database exists
+  mysql_db: name={{ item.name }} state=present
+  with_items: projects
+  when: item.mysql
 
-- name: Ensure database exists.
-  mysql_db: name={{ dbname }} state=present
-  #notify: copy db
+- name: Create DB users
+  mysql_user: name={{ item.name }} password={{ item.db_user.password }} priv={{ item.db_user.priv }} host='%' state=present
+  with_items: projects
+  when: item.mysql
+
+# - name: Create Application DB users
+#   mysql_user: name={{ item.user }} password={{ item.password }} priv={{ item.priv }} host='%' state=present
+#   with_items: db_users

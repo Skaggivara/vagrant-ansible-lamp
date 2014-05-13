@@ -1,0 +1,2 @@
+- name: put vagrant user in www-data group
+  user: name=vagrant groups=www-data append=yes

@@ -1,22 +1,20 @@
-- name: download WordPress
-  get_url: url=http://wordpress.org/latest.zip dest=/tmp/
+# - name: Update perch config for projects
+#   template:
+#     src=config.php.j2
+#     dest="{{ item.document_root }}/perch/config/config.php"
+#   with_items: projects
+#   when: item.cms == "perchcms"
 
-- name: unzip WordPress
-  command: unzip /tmp/latest.zip -d /tmp/
-
-- name: set WordPress file permissions correctly
-  file: path=/tmp/wordpress state=directory recurse=yes owner=www-data group=www-data mode=0775
-
-- name: move WordPress files to web root
-  command: mv /tmp/wordpress {{ site_root }}/public/
-
-- name: Update Wordpress config
+- name: Update wordpress config for projects
   template:
     src=wp-config-sample.php.j2
-    dest="{{ site_root}}/public/wp-config.php"
+    dest="{{ item.document_root }}/wp-config.php"
+    owner=www-data group=www-data mode=0775
+  with_items: projects
+  when: item.cms == "wordpress"
 
-- name: set config file permissions correctly
-  file: path={{ site_root}}/public/wp-config.php owner=www-data group=www-data mode=0775
+# - name: set config file permissions correctly
+#   file: path={{ site_root}}/public/wp-config.php owner=www-data group=www-data mode=0775
 
-- name: set web root folder permissions
-  file: path={{ site_root }}/public state=directory owner=www-data group=www-data mode=0755
+# - name: set web root folder permissions
+#   file: path={{ site_root }}/public state=directory owner=www-data group=www-data mode=0755

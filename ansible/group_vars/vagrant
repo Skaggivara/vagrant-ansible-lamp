@@ -1,8 +1,12 @@
-site_root: /vagrant
-project_name: project_name
-timezone: 'Pacific/Auckland'
+# db_server: 127.0.0.1
+# db_users:
+#   enter_project_name:
+#     password: enter_db_pass
+#     priv: enter_project_name.*:ALL
+#   enter_project_name:
+#     password: enter_db_pass
+#     priv: enter_project_name.*:ALL
 
-#mysql
-dbuser: dbuser
-dbname: dbname
-upassword: dbpassword
+# licenses:
+#   enter_project_name:
+#     perchcms: XXX
