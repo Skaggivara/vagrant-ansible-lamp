@@ -1,0 +1,14 @@
+---
+projects:
+  - { name: "project_name",
+      site_root: "/var/www/project_name.dev",
+      document_root: "/var/www/project_name.dev/public",
+      mysql: true,
+      cms: perchcms,
+      db_user: "{{ db_users.project_name }}",
+      licenses: "{{ licenses.project_name }}" }
+  - { name: "project_name",
+      site_root: "/var/www/project_name.dev",
+      document_root: "/var/www/project_name.dev/public",
+      mysql: false,
+      cms: false }

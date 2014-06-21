@@ -5,11 +5,19 @@
 #https://github.com/dotless-de/vagrant-vbguest
 
 Vagrant.configure("2") do |config|
+  #Parallels
+  #Requires Parallels plugin: $ vagrant plugin install vagrant-parallels
+  #Usage: $ vagrant up --provider=parallels 
+  #config.vm.box = "parallels/precise64.box"
+  #config.vm.box_url = "http://download.parallels.com/desktop/vagrant/precise64.box"
+  
+  #VirtualBox
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   # Make this VM reachable on the host network as well, so that other
   # VM's running other browsers can access our dev server.
+  #config.vm.network :private_network, ip: "192.168.111.100"
   config.vm.network :private_network, ip: "192.168.111.100"
 
   # Make it so that network access from the vagrant guest is able to
@@ -23,7 +31,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :ansible do |ansible|
     ansible.playbook = "ansible/development.yml"
-    #ansible.ask_vault_pass = true
     ansible.groups = {
       "vagrant" => ["default"]
     }

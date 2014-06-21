@@ -5,25 +5,19 @@
 # Looks for the [vagrant] section in the hosts file to determine which machines
 # to operate on.
 
+# Each role has it's own defaults, look in role/default for role configuration
+
 - hosts: vagrant
   sudo: yes
 
   vars:
     timezone: 'Pacific/Auckland'
-    # projects:
-    #   - { name: "project_name",
-    #       site_root: "/var/www/project_folder",
-    #       document_root: "/var/www/project_root",
-    #       mysql: true,
-    #       db_user: "{{ db_users.project_name }}",
-    #       cms: perchcms,
-    #       licenses: "{{ licenses.project_name }}" }
-    #   - { name: "project_name",
-    #       site_root: "/var/www/project_folder",
-    #       document_root: "/var/www/project_root",
-    #       mysql: true,
-    #       db_user: "{{ db_users.project_name }}",
-    #       cms: wordpress }
+    db_server: 127.0.0.1
+
+  vars_files:
+    - settings/databases.yml
+    - settings/licenses.yml
+    - settings/projects.yml
 
   roles:
     - common

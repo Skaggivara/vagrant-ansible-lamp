@@ -15,12 +15,13 @@
 # Put this in an extra file, and load a gem's dependencies before the gem itself.
 - name: Install gems
   gem: name={{ item }} state=latest
+  sudo: yes
   with_items: ruby_gems
 
 #Install sass and compass in specific locations
-- name: Sass
-  action: command gem install sass creates=/usr/local/bin/sass
+# - name: Sass
+#   action: command gem install sass creates=/usr/local/bin/sass
 
-- name: Compass
-  action: command gem install compass creates=/usr/local/bin/compass
+# - name: Compass
+#   action: command gem install compass creates=/usr/local/bin/compass
   #gem: name=compass version=1.0.0.alpha.19 state=present

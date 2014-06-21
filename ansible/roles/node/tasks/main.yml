@@ -1,31 +1,22 @@
-- name: Add Chris-Lea nodejs repository
-  apt_repository: repo="ppa:chris-lea/node.js"
+---
+- name: Node.js | Package prerequisites for node.js
+  apt: pkg=python-software-properties state=present
+  sudo: yes
+  tags: nodejs
 
-- name: Install Node + NPM packages
-  apt: pkg=nodejs state=present update_cache=yes
+- name: Node.js | Add the Node.js PPA
+  apt_repository: repo='ppa:chris-lea/node.js' state=present
+  sudo: yes
+  tags: nodejs
 
-- name: Install npm package {{ item }}
+- name: Node.js | Install Node.js and npm
+  apt: pkg=nodejs update-cache=yes
+  sudo: yes
+  tags: nodejs
+
+- name: Install npm packages
   npm:
     global=yes
     name={{ item }}
     state=present
-  with_items:
-    - grunt-cli
-    - bower
-
-#Only run npm install if package.json exists
-# - name: Check if package.json exists in projects
-#   command: /usr/bin/test -e {{ item.site_root }}/package.json
-#   register: node_package
-#   ignore_errors: yes
-#   with_items: projects
-
-#Only run npm install if package.json exists
-# - name: Check if package.json exists
-#   command: /usr/bin/test -e {{ site_root }}/package.json
-  # register: node_package
-  # ignore_errors: yes
-
-# - name: Install local npm packages from package.json
-#   action: npm path={{ site_root }}
-#   when: node_package|success
+  with_items: node_packages

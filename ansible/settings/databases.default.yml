@@ -1,0 +1,8 @@
+---
+db_users:
+  project_name:
+    password: xxxxxx
+    priv: project_name.*:ALL
+  project_name:
+    password: xxxxxx/nr
+    priv: project_name.*:ALL

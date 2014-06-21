@@ -4,13 +4,10 @@
 /node_modules
 /npm-debug.log
 
-.htaccess
-
 .DS_Store
 
-#perch specific
-/public/perch/resources
-config.php
-
-#wordpress specific
-/public/wp-config.php
+#private settings
+ansible/settings/databases.yml
+ansible/settings/licenses.yml
+ansible/settings/projects.yml
+ansible/roles/git/defaults/main.yml
